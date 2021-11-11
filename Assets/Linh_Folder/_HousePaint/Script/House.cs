@@ -14,6 +14,8 @@ public class House : GameUnit
     // Start is called before the first frame update
     public void OnInit(Vector2Int size)
     {
+        World.Instance.OnInit();
+
         //need follow side
         InitWall(wallPrefab[0], size, Side.Front);
         InitWall(wallPrefab[1], size, Side.Right);
@@ -74,12 +76,12 @@ public class House : GameUnit
 
         if (index <= 3)
         {
-            StartWall(index);
+            World.Instance.SetTarget(Vector3.up * index * 90, ()=> StartWall(index));
             Debug.Log("index "+ index);
         }
         else
         {
-            Debug.Log("win");
+            World.Instance.SetWin(HousePaint.Level.Instance.Start);
         }
 
     }
@@ -87,9 +89,18 @@ public class House : GameUnit
     private void StartWall(int index)
     {
         Wall wall = walls[index];
-        PaintRoller.Instance.SetWall(wall);
-        PaintRoller.Instance.SetIndex(wall.Index, wall.StartPoint);
-        PaintRoller.Instance.SetSide(wall.Side);
-        PaintRoller.Instance.SetActive(true);
+
+        if (wall.IsEmpty)
+        {
+            NextWall();
+        }
+        else
+        {
+
+            PaintRoller.Instance.SetWall(wall);
+            PaintRoller.Instance.SetIndex(wall.Index, wall.StartPoint);
+            PaintRoller.Instance.SetSide(wall.Side);
+            PaintRoller.Instance.SetActive(true);
+        }
     }
 }

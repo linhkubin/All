@@ -23,6 +23,8 @@ public class Wall : GameUnit
     public Vector3 StartPoint => GetPoint(Index);
     public Side Side { get; internal set; }
 
+    public bool IsEmpty => units.Count <= 0;
+
     Vector2Int Size;
 
     private void OnValidate()
@@ -62,13 +64,15 @@ public class Wall : GameUnit
     {
         units.Remove(wallUnit.index);
         unitsRemain.Remove(wallUnit.index);
-        wallUnit.name = "aaaaaaaaaaaaaaa";
-        Debug.Log("isObstacle");
     }
 
     public Vector3 GetPoint(Vector2Int index)
     {
-        return units[index].tf.position;
+        if (units.ContainsKey(index))
+        {
+            return units[index].tf.position;
+        }
+        return Vector3.zero;
     }
 
     private void OnReset()

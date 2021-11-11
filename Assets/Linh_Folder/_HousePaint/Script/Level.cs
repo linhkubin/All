@@ -11,7 +11,7 @@ namespace HousePaint
 
         public House house;
 
-        private void Start()
+        public void Start()
         {
             house.OnInit(new Vector2Int(4,4));
         }
