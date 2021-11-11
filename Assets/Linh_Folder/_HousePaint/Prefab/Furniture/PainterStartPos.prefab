@@ -93,10 +93,7 @@ GameObject:
   - component: {fileID: 6703443270177140329}
   - component: {fileID: 6733291540615170382}
   - component: {fileID: 6726910799626374631}
-  - component: {fileID: 571817965155984465}
-  - component: {fileID: 5198105002766310940}
-  - component: {fileID: 2391935760227409689}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: PainterStartPos
   m_TagString: PainterStartPos
   m_Icon: {fileID: 0}
@@ -111,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6705711673033072665}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 0.04, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6708595790356309311}
@@ -167,47 +164,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &571817965155984465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6705711673033072665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b644272fc5afc70408293077a5fdbd27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  child: {fileID: 6708595790356309311}
-  position: {x: 0, y: 0, z: 0}
-  index: {x: 0, y: 0}
---- !u!65 &5198105002766310940
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6705711673033072665}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.9, y: 0.4, z: 0.9}
-  m_Center: {x: 0.5, y: 0, z: 0.5}
---- !u!54 &2391935760227409689
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6705711673033072665}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
