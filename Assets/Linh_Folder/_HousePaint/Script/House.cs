@@ -1,3 +1,4 @@
+using HousePaint;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,30 +7,40 @@ public enum Side { Front, Back, Left, Right }
 
 public class House : GameUnit
 {
-    public Wall[] wallPrefab;
+    public Transform plat;
     private List<Wall> walls = new List<Wall>();
     private Vector2 size;
     int index;
 
-    // Start is called before the first frame update
-    public void OnInit(Vector2Int size)
+    /// <summary>
+    /// house size
+    /// </summary>
+    /// <param name="size"></param>
+    public void OnInit(int isGame, Vector3Int size)
     {
         World.Instance.OnInit();
 
+        //stage la so man choi game
         //need follow side
-        InitWall(wallPrefab[0], size, Side.Front);
-        InitWall(wallPrefab[1], size, Side.Right);
-        InitWall(wallPrefab[2], size, Side.Back);
-        InitWall(wallPrefab[3], size, Side.Left);
 
-        //random 2-3 wall
-        //random con lai trong list k paint
+        DestroyHouse();
+
+        List<Wall> walls = PrefabManager.Instance.GetNewHouse(Random.Range(2, 4), size);
+
+        InitWall(walls[0], size, Side.Front);
+        InitWall(walls[1], size, Side.Right);
+        InitWall(walls[2], size, Side.Back);
+        InitWall(walls[3], size, Side.Left);
+
         index = 0;
 
         StartWall(index);
+
+        plat.localScale = Vector3.right * (size.x + 1) + Vector3.forward * (size.z + 1) + Vector3.up * 0.3f;
     }
 
-    public void InitWall(Wall newWall, Vector2 size, Side side)
+    // x = truc x, y = truc y, z = truc z
+    public void InitWall(Wall newWall, Vector3 size, Side side)
     {
         Wall wall = Instantiate(newWall, tf);
         wall.house = this;
@@ -41,12 +52,12 @@ public class House : GameUnit
         switch (side)
         {
             case Side.Front:
-                point = new Vector3(0, size.y / 2, -size.x / 2);
+                point = new Vector3(0, size.y / 2, -size.z / 2);
                 face = new Vector3(-90, 0, 0);
                 break;
 
             case Side.Back:
-                point = new Vector3(0, size.y / 2, size.x / 2);
+                point = new Vector3(0, size.y / 2, size.z / 2);
                 face = new Vector3(-90, 180, 0);
                 break;
 
@@ -69,7 +80,6 @@ public class House : GameUnit
 
     public void NextWall()
     {
-        //TODO: xoay lai theo goc camera
         PaintRoller.Instance.SetActive(false);
 
         index++;
@@ -99,8 +109,17 @@ public class House : GameUnit
 
             PaintRoller.Instance.SetWall(wall);
             PaintRoller.Instance.SetIndex(wall.Index, wall.StartPoint);
-            PaintRoller.Instance.SetSide(wall.Side);
+            //PaintRoller.Instance.SetSide(wall.Side);
             PaintRoller.Instance.SetActive(true);
+        }
+    }
+
+    private void DestroyHouse()
+    {
+        while (walls.Count > 0)
+        {
+            Destroy(walls[0].gameObject);
+            walls.RemoveAt(0);
         }
     }
 }

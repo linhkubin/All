@@ -13,7 +13,8 @@ namespace HousePaint
 
         public void Start()
         {
-            house.OnInit(new Vector2Int(4,4));
+            //size house
+            house.OnInit(2, new Vector3Int(4, 4, 5));
         }
     }
 }

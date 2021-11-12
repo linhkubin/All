@@ -68,11 +68,6 @@ public class PaintRoller : Singleton<PaintRoller>
         //child.material = HousePaint.Level.Instance.newPaint;
     }
 
-    public void SetSide(Side side)
-    {
-        //TODO: xoay
-    }
-
     public void SetWall(Wall wall)
     {
         this.wall = wall;

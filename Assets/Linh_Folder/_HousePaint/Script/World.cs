@@ -6,6 +6,9 @@ using UnityEngine.Events;
 public class World : Singleton<World>
 {
     public Transform tf;
+    public AnimationCurve curveTime;
+    public ParticleSystem winVFX;
+
     Quaternion targetRotation;
     bool isMoving;
 
@@ -52,11 +55,15 @@ public class World : Singleton<World>
     
     private IEnumerator IEMoveWin()
     {
-        int length = Random.Range(300, 450);
+        winVFX.Play();
+        float time = 0;
 
-        for (int i = 0; i < length; i++)
+        while (time < 3.5f)
         {
-            tf.Rotate(Vector3.up);
+            time += Time.deltaTime;
+
+            tf.rotation = Quaternion.Euler(Vector3.up * (270 + curveTime.Evaluate(time)));
+
             yield return null;
         }
 
