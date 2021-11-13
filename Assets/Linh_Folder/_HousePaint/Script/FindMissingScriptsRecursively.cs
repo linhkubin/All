@@ -18,6 +18,7 @@ public static class FindMissingScriptsRecursively
             int count = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(go);
             if (count > 0)
             {
+                //check if this is prefab
                 if (PrefabUtility.IsPartOfAnyPrefab(go))
                 {
                     RecursivePrefabSource(go, prefabs, ref compCount, ref goCount);
@@ -28,6 +29,7 @@ public static class FindMissingScriptsRecursively
                     // if not the missing scripts must be prefab overrides on this instance
                 }
 
+                //save prefab
                 Undo.RegisterCompleteObjectUndo(go, "Remove missing scripts");
                 GameObjectUtility.RemoveMonoBehavioursWithMissingScript(go);
                 compCount += count;
