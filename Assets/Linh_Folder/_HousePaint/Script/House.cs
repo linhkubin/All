@@ -34,8 +34,6 @@ public class House : GameUnit
 
         index = 0;
 
-        StartWall(index);
-
         plat.localScale = Vector3.right * (size.x + 1) + Vector3.forward * (size.z + 1) + Vector3.up * 0.3f;
     }
 
@@ -87,7 +85,6 @@ public class House : GameUnit
         if (index <= 3)
         {
             World.Instance.SetTarget(Vector3.up * index * 90, ()=> StartWall(index));
-            Debug.Log("index "+ index);
         }
         else
         {
@@ -96,7 +93,7 @@ public class House : GameUnit
 
     }
 
-    private void StartWall(int index)
+    public void StartWall(int index = 0)
     {
         Wall wall = walls[index];
 

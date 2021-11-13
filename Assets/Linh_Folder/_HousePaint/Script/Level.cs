@@ -13,6 +13,8 @@ namespace HousePaint
 
         public void Start()
         {
+            //TODO: setup level
+            UI_Game.Instance.OpenUI(UIID.MainMenu);
             //size house
             house.OnInit(2, new Vector3Int(4, 4, 5));
         }

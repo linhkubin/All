@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,7 +5,7 @@ using UnityEditor;
 public static class ReGameobjectToPrefab
 {
     [MenuItem("Auto/ReGameobjectToPrefab")]
-    private static void FindAndReGameobjectToPrefabInSelected()
+    public static void FindAndReGameobjectToPrefabInSelected()
     {
         #region create prefab source
 
@@ -52,7 +51,7 @@ public static class ReGameobjectToPrefab
 
                 goCount++;
 
-                destroys.Add(go.gameObject); 
+                destroys.Add(go.gameObject);
             }
 
         }
@@ -64,29 +63,9 @@ public static class ReGameobjectToPrefab
             destroys.RemoveAt(0);
         }
 
+        Undo.RegisterCompleteObjectUndo(Selection.activeGameObject, "");
+
         Debug.Log($"Found and change {goCount} GameObjects");
     }
 
-    // Prefabs can both be nested or variants, so best way to clean all is to go through them all
-    // rather than jumping straight to the original prefab source.
-    private static void RecursivePrefabSource(GameObject instance, HashSet<Object> prefabs, ref int compCount,
-        ref int goCount)
-    {
-        var source = PrefabUtility.GetCorrespondingObjectFromSource(instance);
-        // Only visit if source is valid, and hasn't been visited before
-        if (source == null || !prefabs.Add(source))
-            return;
-
-        // go deep before removing, to differantiate local overrides from missing in source
-        RecursivePrefabSource(source, prefabs, ref compCount, ref goCount);
-
-        int count = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(source);
-        if (count > 0)
-        {
-            Undo.RegisterCompleteObjectUndo(source, "Remove missing scripts");
-            GameObjectUtility.RemoveMonoBehavioursWithMissingScript(source);
-            compCount += count;
-            goCount++;
-        }
-    }
 }

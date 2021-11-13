@@ -14,7 +14,7 @@ namespace HousePaint
         // Start is called before the first frame update
         void Awake()
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < list.Length; i++)
             {
                 walls.Add(list[i], Resources.LoadAll<Wall>("walls/" + list[i].x + "x" + list[i].y + "/empty"));
                 filled.Add(list[i], Resources.LoadAll<Wall>("walls/" + list[i].x + "x" + list[i].y + "/filled"));
@@ -54,14 +54,13 @@ namespace HousePaint
 
         private Wall GetWall(Vector2Int size)
         {
-            Debug.Log("- " + size);
+            //Debug.Log("- " + size);
             //TODO: ve sau sex check xem co bi lap lai k
             return walls[size][Random.Range(0, walls[size].Length)];
         }
 
         private Wall GetFilled(Vector2Int size)
         {
-            Debug.Log("+ " + size);
             return filled[size][Random.Range(0, filled[size].Length)];
         }
     }

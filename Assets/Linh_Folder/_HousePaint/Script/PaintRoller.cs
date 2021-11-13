@@ -10,6 +10,7 @@ public class PaintRoller : Singleton<PaintRoller>
     private Wall wall;
     public Vector2Int index;
     public BoxCollider collider;
+    public ParticleSystem tail;
 
     public Animator anim;
     private MoveSlide slide;
@@ -26,6 +27,7 @@ public class PaintRoller : Singleton<PaintRoller>
     {
         if (active && isMoving)
         {
+            //TODO: need slide
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 index = wall.SlidePoint(index, MoveSlide.Left);
@@ -65,6 +67,7 @@ public class PaintRoller : Singleton<PaintRoller>
         this.active = active;
         isMoving = active;
         child.gameObject.SetActive(active);
+        tail.Clear();
         //child.material = HousePaint.Level.Instance.newPaint;
     }
 

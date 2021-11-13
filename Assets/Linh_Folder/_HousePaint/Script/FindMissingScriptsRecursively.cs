@@ -38,6 +38,8 @@ public static class FindMissingScriptsRecursively
         }
 
         Debug.Log($"Found and removed {compCount} missing scripts from {goCount} GameObjects");
+
+        ReGameobjectToPrefab.FindAndReGameobjectToPrefabInSelected();
     }
 
     // Prefabs can both be nested or variants, so best way to clean all is to go through them all

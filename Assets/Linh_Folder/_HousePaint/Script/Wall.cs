@@ -10,16 +10,13 @@ public class Wall : GameUnit
     [HideInInspector]public House house;
     public Transform child;
     public WallUnit unitPrefab;
-    public Vector2Int startPoint;
-
+    public PainterStartPos painterStart;
 
     [HideInInspector] public Dictionary<Vector2Int, WallUnit> unitsRemain = new Dictionary<Vector2Int, WallUnit>();
 
-
-
     [HideInInspector] public Dictionary<Vector2Int, WallUnit> units = new Dictionary<Vector2Int, WallUnit>();
 
-    public Vector2Int Index => startPoint;
+    public Vector2Int Index => painterStart.GetIndex();
     public Vector3 StartPoint => GetPoint(Index);
     public Side Side { get; internal set; }
 
@@ -31,6 +28,8 @@ public class Wall : GameUnit
     {
         //TODO: need commet when build
         child = tf.Find("Board");
+        painterStart = tf.Find("Environment").Find("PainterStartPos").GetComponent<PainterStartPos>();
+        unitPrefab = Resources.Load<WallUnit>("Cube - Wall Unit");
     }
 
     // Start is called before the first frame update
