@@ -112,7 +112,11 @@ public class PaintRoller : Singleton<PaintRoller>
         collider.enabled = active;
         this.active = active;
         isMoving = active;
-        tail.Clear();
+
+        if (active)
+            tail.Play();
+        else
+            tail.Stop();
         child.gameObject.SetActive(active);
         //child.material = HousePaint.Level.Instance.newPaint;
     }
