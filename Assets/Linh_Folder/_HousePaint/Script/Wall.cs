@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MoveSlide { Left, Right, Up, Down}
+public enum MoveSlide { None, Left, Right, Up, Down}
 
 public class Wall : GameUnit
 {
@@ -24,13 +24,17 @@ public class Wall : GameUnit
 
     Vector2Int Size;
 
+#if UNITY_EDITOR
+
     private void OnValidate()
     {
-        //TODO: need commet when build
         child = tf.Find("Board");
         painterStart = tf.Find("Environment").Find("PainterStartPos").GetComponent<PainterStartPos>();
         unitPrefab = Resources.Load<WallUnit>("Cube - Wall Unit");
     }
+
+#endif
+
 
     // Start is called before the first frame update
     public void OnInit()

@@ -55,12 +55,14 @@ namespace HousePaint
         private Wall GetWall(Vector2Int size)
         {
             //Debug.Log("- " + size);
-            //TODO: ve sau sex check xem co bi lap lai k
+            //TODO: ve sau sexcheck xem co bi lap lai k
+            //Debug.Log(size);
             return walls[size][Random.Range(0, walls[size].Length)];
         }
 
         private Wall GetFilled(Vector2Int size)
         {
+            //Debug.Log(size);
             return filled[size][Random.Range(0, filled[size].Length)];
         }
     }

@@ -14,6 +14,12 @@ public class Enums
     public static List<T> SortOrder<T>(List<T> list)
     {
         return list.OrderBy(d => System.Guid.NewGuid()).Take(list.Count).ToList();
+    } 
+    
+    
+    public static T[] SortOrder<T>(T[] list)
+    {
+        return list.OrderBy(d => System.Guid.NewGuid()).Take(list.Length).ToArray();
     }
 }
 

@@ -7,6 +7,7 @@ public enum Side { Front, Back, Left, Right }
 
 public class House : GameUnit
 {
+    public Transform roof;
     public Transform plat;
     private List<Wall> walls = new List<Wall>();
     private Vector2 size;
@@ -22,6 +23,7 @@ public class House : GameUnit
 
         //stage la so man choi game
         //need follow side
+        Debug.Log(size);
 
         DestroyHouse();
 
@@ -35,6 +37,8 @@ public class House : GameUnit
         index = 0;
 
         plat.localScale = Vector3.right * (size.x + 1) + Vector3.forward * (size.z + 1) + Vector3.up * 0.3f;
+        roof.position = Vector3.up * size.y;
+        roof.localScale = Vector3.right * (size.z + 2) / 2 + Vector3.forward * (size.x + 2)/ 2 + Vector3.up;
     }
 
     // x = truc x, y = truc y, z = truc z

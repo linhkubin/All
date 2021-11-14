@@ -23,6 +23,7 @@ public class GameManager : Singleton<GameManager>
         Input.multiTouchEnabled = false;
         Application.targetFrameRate = 60;
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        Time.captureDeltaTime = 0.02f;
 
         int maxScreenHeight = 1280;
         float ratio = (float)Screen.currentResolution.width / (float)Screen.currentResolution.height;
@@ -32,13 +33,7 @@ public class GameManager : Singleton<GameManager>
         }
 
         //csv.OnInit();
-        userData.OnInitData();
-    }
-
-    private void Start()
-    {
-        //DeltaTime = 0.017f ;
-        //UI_Game.Instance.OpenUI(UIID.MainMenu);
+        userData?.OnInitData();
     }
 
     public void ChangeState(GameState gameState)

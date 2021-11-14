@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEditor;
+
+#if UNITY_EDITOR
+
 public static class ReGameobjectToPrefab
 {
     [MenuItem("Auto/ReGameobjectToPrefab")]
@@ -69,3 +72,4 @@ public static class ReGameobjectToPrefab
     }
 
 }
+#endif
