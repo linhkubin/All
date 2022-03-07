@@ -62,18 +62,13 @@ public static class ParticlePool
     //--------------------------------------------------------------------------------------------------
 
     // All of our pools
-    static Dictionary<int, Pool> pools;
+    static Dictionary<int, Pool> pools = new Dictionary<int, Pool>();
 
     /// <summary>
     /// Init our dictionary.
     /// </summary>
     static void Init(ParticleSystem prefab = null, int qty = DEFAULT_POOL_SIZE, Transform parent = null)
     {
-        if (pools == null)
-        {
-            pools = new Dictionary<int, Pool>();
-        }
-
         if (prefab != null && !pools.ContainsKey(prefab.GetInstanceID()))
         {
             pools[prefab.GetInstanceID()] = new Pool(prefab, qty, parent);

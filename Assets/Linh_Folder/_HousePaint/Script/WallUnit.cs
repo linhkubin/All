@@ -10,14 +10,23 @@ public class WallUnit : GameUnit, IContact
     public LayerMask layerMask;
     public MeshRenderer mesh;
 
+    public ParticleSystem grassVFX;
+    public GameObject grass;
+    public GameObject ground;
+
     public void IsObstacle()
     {
         wall.IsObstacle(this);
+
+        grass.SetActive(false);
+        ground.SetActive(false);
     }
 
     public void Contact()
     {
         wall.Paint(this);
+        grass.SetActive(false);
+        grassVFX.Play();
     }
 
     public void Painted()

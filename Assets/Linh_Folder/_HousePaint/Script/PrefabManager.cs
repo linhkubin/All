@@ -22,13 +22,13 @@ namespace HousePaint
 
         }
 
-        public List<Wall> GetNewHouse(int isGame, Vector3Int size)
+        public List<Wall> GetNewHouse(int isGameplay, Vector3Int size)
         {
             //tao list gia tri la tuong hay gach
             List<bool> listIsGame = new List<bool>();
             for (int i = 0; i < 4; i++)
             {
-                listIsGame.Add(i < isGame);
+                listIsGame.Add(i < isGameplay);
             }
 
             //mat dau tien phai la isGame
@@ -52,7 +52,28 @@ namespace HousePaint
             return walls;
         }
 
+        public List<Wall> GetNewPlats(Vector2Int size)
+        {
+            //tao list plat
+            List<Wall> plats = new List<Wall>();
+
+            for (int i = 0; i < 3; i++)
+            {
+                plats.Add(GetPlat(size));
+            }
+
+            return plats;
+        }
+
         private Wall GetWall(Vector2Int size)
+        {
+            //Debug.Log("- " + size);
+            //TODO: ve sau sexcheck xem co bi lap lai k
+            //Debug.Log(size);
+            return walls[size][Random.Range(0, walls[size].Length)];
+        }
+        
+        public Wall GetPlat(Vector2Int size)
         {
             //Debug.Log("- " + size);
             //TODO: ve sau sexcheck xem co bi lap lai k
@@ -64,6 +85,39 @@ namespace HousePaint
         {
             //Debug.Log(size);
             return filled[size][Random.Range(0, filled[size].Length)];
+        }
+
+        public bool IsHaveHouseSize(Vector2Int size, ref int height)
+        {
+            bool isHaveHouse = false;
+            List<int> heights = new List<int>();
+
+            for (int i = 0; i < list.Length; i++)
+            {
+                if (list[i].y == size.x)
+                {
+                    for (int j = i + 1; j < list.Length; j++)
+                    {
+                        if (list[j].y == size.y)
+                        {
+                            if (list[i].x == list[j].x)
+                            {
+                                heights.Add(list[i].x);
+                                isHaveHouse = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            if (isHaveHouse)
+            {
+                height = heights[Random.Range(0, heights.Count)];
+            }
+
+            return isHaveHouse;
         }
     }
 }

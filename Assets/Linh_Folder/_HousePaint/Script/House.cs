@@ -17,15 +17,19 @@ public class House : GameUnit
     /// house size
     /// </summary>
     /// <param name="size"></param>
-    public void OnInit(int isGame, Vector3Int size)
+    public void OnInitHouse(int isGame, Vector3Int size)
     {
         World.Instance.OnInit();
+        tf.localScale = Vector3.one;
+        tf.rotation = Quaternion.identity;
+        tf.position = Vector3.zero;
 
         //stage la so man choi game
         //need follow side
         Debug.Log(size);
 
         DestroyHouse();
+
 
         List<Wall> walls = PrefabManager.Instance.GetNewHouse(Random.Range(2, 4), size);
 
@@ -34,11 +38,13 @@ public class House : GameUnit
         InitWall(walls[2], size, Side.Back);
         InitWall(walls[3], size, Side.Left);
 
-        index = 0;
-
         plat.localScale = Vector3.right * (size.x + 1) + Vector3.forward * (size.z + 1) + Vector3.up * 0.3f;
         roof.position = Vector3.up * size.y;
-        roof.localScale = Vector3.right * (size.z + 2) / 2 + Vector3.forward * (size.x + 2)/ 2 + Vector3.up;
+        roof.localScale = Vector3.right * (size.z + 2) / 2 + Vector3.forward * (size.x + 2) / 2 + Vector3.up;
+
+        tf.localScale = Vector3.one * 0.7f;
+        tf.rotation = Quaternion.Euler(Vector3.up * 90);
+        tf.position = Vector3.up * 0.1f;
     }
 
     // x = truc x, y = truc y, z = truc z
@@ -72,13 +78,32 @@ public class House : GameUnit
                 point = new Vector3(size.x / 2, size.y / 2, 0);
                 face = new Vector3(-90, -90, 0);
                 break;
-
         }
+
 
         wall.tf.SetPositionAndRotation(point, Quaternion.Euler(face));
         wall.Side = side;
-        wall.OnInit();
+        //wall.OnInit();
     }
+
+    public void OnInitPlats(Vector2Int size)
+    {
+        List<Wall> plats = PrefabManager.Instance.GetNewPlats(size);
+
+        //housePlat.localPosition = Vector3.zero;
+        //housePlat.localPosition = new Vector3(size.x, 1, size.y);
+
+        for (int i = 0; i < plats.Count; i++)
+        {
+            Wall wall = Instantiate(plats[i], new Vector3(size.y * ((i + 1) % 2), 0, size.x * (-(i + 1) / 2)), Quaternion.identity);
+            wall.OnInit();
+            wall.house = this;
+            walls.Add(wall);
+        }
+
+        index = 0;
+    }
+
 
     public void NextWall()
     {
@@ -117,10 +142,12 @@ public class House : GameUnit
 
     private void DestroyHouse()
     {
-        while (walls.Count > 0)
-        {
-            Destroy(walls[0].gameObject);
-            walls.RemoveAt(0);
-        }
+        //TODO: destroy all
+
+        //while (walls.Count > 0)
+        //{
+        //    Destroy(walls[0].gameObject);
+        //    walls.RemoveAt(0);
+        //}
     }
 }

@@ -22,19 +22,25 @@ public class World : Singleton<World>
 
     public void SetTarget(Vector3 rot, UnityAction doneAction)
     {
-        this.doneAction = doneAction;
+        //TODO: fix late
+        //this.doneAction = doneAction;
         targetRotation = Quaternion.Euler(rot);
 
-        if (!isMoving)
-        {
-            StartCoroutine(IEMoveWorld());
-        }
+        //if (!isMoving)
+        //{
+        //    StartCoroutine(IEMoveWorld());
+        //}
+
+        doneAction?.Invoke();
     }
 
     public void SetWin(UnityAction doneAction)
     {
+        //TODO: fix late
         this.doneAction = doneAction;
-        StartCoroutine(IEMoveWin());
+        //StartCoroutine(IEMoveWin());
+
+        doneAction?.Invoke();
     }
 
     private IEnumerator IEMoveWorld()
